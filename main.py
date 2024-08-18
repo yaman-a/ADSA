@@ -42,7 +42,7 @@ def convertToBase(number, base):
     return result
 
 def main():
-    inputLine = input("Enter I1, I2, and base separated by spaces: ").strip()
+    inputLine = input().strip()
     I1Str, I2Str, baseStr = inputLine.split()
 
     global base
