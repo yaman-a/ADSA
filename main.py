@@ -1,12 +1,13 @@
-def addSchoolMethod(I1, I2):
+def addSchoolMethod(I1, I2, base):
 
     num1 = int(I1, base)
     num2 = int(I2, base)
 
     sumResult = num1 + num2
-    return sumResult
 
-def karatsuba(x, y):
+    return convertToBase(sumResult, base)
+
+def karatsuba(x, y, base):
     num1 = int(x, base)
     num2 = int(y, base)
 
@@ -21,9 +22,13 @@ def karatsuba(x, y):
     x1, x0 = x[:-split_position], x[-split_position:]
     y1, y0 = y[:-split_position], y[-split_position:]
 
-    z2 = karatsuba(x1, y1)
-    z0 = karatsuba(x0, y0)
-    z1 = karatsuba(addSchoolMethod(x1, x0), addSchoolMethod(y1, y0)) - z2 - z0
+    z2 = karatsuba(x1, y1, base)
+    z0 = karatsuba(x0, y0, base)
+
+    x1_plus_x0 = addSchoolMethod(x1, x0, base)
+    y1_plus_y0 = addSchoolMethod(y1, y0, base)
+
+    z1 = karatsuba(x1_plus_x0, y1_plus_y0, base) - z2 - z0
 
     return z2 * (base ** (2 * split_position)) + z1 * (base ** split_position) + z0
 
@@ -43,13 +48,12 @@ def main():
     inputLine = input().strip()
     I1Str, I2Str, baseStr = inputLine.split()
 
-    global base
     base = int(baseStr)
 
-    sumResult = addSchoolMethod(I1Str, I2Str)
-    productResult = karatsuba(I1Str, I2Str)
+    sumResult = addSchoolMethod(I1Str, I2Str, base)
+    productResult = karatsuba(I1Str, I2Str, base)
 
-    sumBaseB = convertToBase(sumResult, base)
+    sumBaseB = convertToBase(int(sumResult, base), base)
     productBaseB = convertToBase(productResult, base)
 
     print(f"{sumBaseB} {productBaseB} 0")
