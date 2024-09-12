@@ -129,7 +129,7 @@ def delete(node, val):
     return node
 
 
-# Level order traversal, mainly for testing purposes
+# Level order traversal, for testing purposes only
 def levelOrder(node):
     if not node:
         return
@@ -153,6 +153,24 @@ def levelOrder(node):
 
             print(curr.val, end=" ")
 
+def preOrder(root):
+    if not root:
+        return []
+    
+    return [root.val] + postOrder[root.left] + postOrder[root.right]
+
+def postOrder(root):
+    if not root:
+        return []
+    
+    return postOrder(root.left) + postOrder(root.right) + [root.val]
+
+def inorder(root):
+    if not root:
+        return []
+    
+    return inorder(root.left) + [root.val] + inorder(root.right)
+
 # actual main code
 def main():
     root = None
@@ -173,11 +191,11 @@ def main():
         print("EMPTY")
     else:
         if traversal == 'PRE':
-            # Preorder
+            result = preOrder(root)
         elif traversal == 'POST':
-            # Postorder
+            result = postOrder(root)
         elif traversal == 'IN':
-            # Inorder
+            result = inorder(root)
 
         print(" ".join(map(str, result)))
     
