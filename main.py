@@ -8,37 +8,44 @@ class Node:
         self.right = None
         self.height = 1
 
+# Perform right rotation
 def rightRotate(a):
     b = a.left
     c = b.right
 
+    # Rotation
     b.right = a
     a.left = c
 
+    # Adjust height
     a.height = 1 + max(height(a.left), height(a.right))
     b.height = 1 + max(height(b.left), height(b.right))
 
+    # Return new node
     return b
 
 def leftRotate(x):
     y = x.right
     z = y.left
 
+    # Rotation
     y.left = x
     x.right = z
 
+    # Adjust height
     x.height = 1 + max(height(x.left), height(x.right))
     y.height = 1 + max(height(y.left), height(y.right))
 
+    # Return new node
     return y
 
-# Function to get height of tree
+# Get height of tree
 def height(node):
     if not node:
         return 0
     return node.height
 
-# Function to get the balance of node
+# Get the balance of node
 def getBalance(node):
     if not node:
         return 0
@@ -157,7 +164,7 @@ def preOrder(root):
     if not root:
         return []
     
-    return [root.val] + postOrder[root.left] + postOrder[root.right]
+    return [root.val] + postOrder(root.left) + postOrder(root.right)
 
 def postOrder(root):
     if not root:
@@ -175,7 +182,7 @@ def inorder(root):
 def main():
     root = None
 
-    inputLine = input().strip.split()
+    inputLine = input().strip().split()
 
     for command in inputLine[:-1]:
         if command[0] == 'A':
