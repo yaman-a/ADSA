@@ -1,6 +1,8 @@
 #include <iostream>
 #include <queue>
 
+// Im writing code mainly in python, but ill write c++ code as well for testing mainly
+
 struct Node {
     int val;
     Node *left;
