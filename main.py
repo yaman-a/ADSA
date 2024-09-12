@@ -1,5 +1,5 @@
 from collections import deque as queue
-
+import sys
 # Node class (struct)
 class Node:
     def __init__(self, val):
@@ -157,22 +157,29 @@ def levelOrder(node):
 def main():
     root = None
 
-    vals = [10,20,30,40,50,25]
+    inputLine = input().strip.split()
 
-    for i in vals:
-        root = insert(root, i)
+    for command in inputLine[:-1]:
+        if command[0] == 'A':
+            val = int(command[1])
+            root = insert(root, val)
+        elif command[0] == 'D':
+            val = int(command[1])
+            root = delete(root, val)
 
-    print("Level order:")
-    levelOrder(root)
-    print("\n")
+    traversal = inputLine[-1]
 
-    deletions = [20, 30]
-    for j in deletions:
-        root = delete(root, j)
+    if not root:
+        print("EMPTY")
+    else:
+        if traversal == 'PRE':
+            # Preorder
+        elif traversal == 'POST':
+            # Postorder
+        elif traversal == 'IN':
+            # Inorder
 
-    print("Level order after deletions:")
-    levelOrder(root)
-    print("\n")
+        print(" ".join(map(str, result)))
     
 
 # Main
