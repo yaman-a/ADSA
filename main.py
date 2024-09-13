@@ -186,7 +186,7 @@ def preOrder(root):
     if not root:
         return []
     
-    return [root.val] + postOrder(root.left) + postOrder(root.right)
+    return [root.val] + preOrder(root.left) + preOrder(root.right)
 
 # Postorder traversal (left, right, node)
 def postOrder(root):
@@ -213,16 +213,16 @@ def main():
     # Loop through commands except the last one
     for command in inputLine[:-1]:
         if command[0] == 'A':
-            val = int(command[1])
+            val = int(command[1:])
             root = insert(root, val)
         elif command[0] == 'D':
-            val = int(command[1])
+            val = int(command[1:])
             root = delete(root, val)
 
     # Last input, which is traversal type
     traversal = inputLine[-1]
 
-    
+
     if not root:
         print("EMPTY")
     else:
