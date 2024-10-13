@@ -1,6 +1,6 @@
 class HashTable:
     def __init__(self):
-        # Initialise 26 slots with "never used"
+        # Initialise 26 slots with keys and another with "never used" status
         self.table = [None] * 26 
         self.status = ["never used"] * 26
 
@@ -15,7 +15,8 @@ class HashTable:
             index = (index + 1) % 26 # linear probing
             if index == original_idx:
                 return # exit if table is full
-            
+        
+        # check if the spot is empty
         if self.status[index] != "occupied":
             self.table[index] = key
             self.status[index] = "occupied"
@@ -32,6 +33,7 @@ class HashTable:
                 return # exit if wrapped around
     
     def process(self, commands):
+        # parse commands
         for command in commands:
             action = command[0]
             key = command[1:]
@@ -46,7 +48,7 @@ class HashTable:
         print(" ".join(result))
 
 if __name__ == "__main__":
-    # split commands, parse commands and print out
+    # split commands, parse it and print out result
     commands = input().split()
 
     table = HashTable()
