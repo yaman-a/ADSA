@@ -70,7 +70,7 @@ def costConvert(c):
 # parse input
 def parseInput():
     inputLine = input().strip()
-    countryInput, buildInput, destroyInput = inputLine.strip()
+    countryInput, buildInput, destroyInput = inputLine.split(' ')
 
     country = [list(row) for row in countryInput.split(',')]
     build = [list(row) for row in buildInput.split(',')]
