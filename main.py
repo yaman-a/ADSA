@@ -18,12 +18,12 @@ class UnionFind:
         rY = self.find(y)
 
         if rX != rY:
-            if self.rank[rX] > rY:
+            if self.rank[rX] > self.rank[rY]:
                 self.parent[rY] = rX
-            elif self.rank[rX] < rY:
+            elif self.rank[rX] < self.rank[rY]:
                 self.parent[rX] = rY
             else:
-                self.parent[rX] = rY
+                self.parent[rY] = rX
                 self.rank[rX] += 1
             return True
         return False
@@ -56,7 +56,6 @@ def solution(n, country, build, destroy):
         if unionf.union(u, v):
             if action == "build":
                 totalCost += cost
-            # destroyed edges should be counted as negative cost
             elif action == "destroy":
                 totalCost += cost
             roadsBuilt += 1
