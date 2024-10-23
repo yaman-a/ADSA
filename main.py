@@ -2,6 +2,8 @@
 #  and either add or destroy roads so that there is exactly one path between every pair of distinct cities.
 #  This could be a case of turning the graphs into a minimum spanning tree, which will connect all the cities at a minimum cost
 
+import sys
+
 #  Implement Union find
 class UnionFind:
     def __init__(self, n):
@@ -45,7 +47,7 @@ def solution(n, country, build, destroy):
     # sort edges by cost
     edges.sort()
 
-    # use union find (aka kruskals algorithm) to find the minimum spanning tree
+    # use union find to find the minimum spanning tree
     unionf = UnionFind(n)
     totalCost =  0
 
@@ -67,13 +69,21 @@ def costConvert(c):
         return ord(c) - ord('a') + 26
     return 0
 
-
+# parse input
 def parseInput():
-    # Will be replaced with actual inputs
-    countryInput = "000,000,000"
-    buildInput = "ABD,BAC,DCA"
-    destroyInput = "ABD,BAC,DCA"
+    # trying out sys for input this time
+    inputLine = sys.stdin.read().strip()
+    countryInput, buildInput, destroyInput = inputLine.strip()
+
+    country = [list(row) for row in countryInput.split(',')]
+    build = [list(row) for row in buildInput.split(',')]
+    destroy = [list(row) for row in destroyInput.split(',')]
+
+    n = len(country)
+    return n, country, build, destroy
 
 
 if __name__ == "__main__":
-    print()
+    n, country, build, destroy = parseInput()
+    result = solution(n, country, build, destroy)
+    print(result)
