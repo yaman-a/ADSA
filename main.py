@@ -35,12 +35,12 @@ def solution(n, country, build, destroy):
     # collect edges based on country and build or destroy costs
     for i in range(n):
         for j in range(i + 1, n):
-            if country[i][j] == '1':
+            if country[i][j] == '1': # if road exists
                 dcost = costConvert(destroy[i][j])
-                edges.append((dcost, i, j, "destroy"))
-            else:
+                edges.append((dcost, i, j, "destroy")) # destroy cost
+            else: # road no exist
                 bcost = costConvert(build[i][j])
-                edges.append((bcost, i, j, "build"))
+                edges.append((bcost, i, j, "build")) # build cost
 
     # sort edges by cost
     edges.sort()
@@ -48,14 +48,22 @@ def solution(n, country, build, destroy):
     # use union find to find the minimum spanning tree
     unionf = UnionFind(n)
     totalCost =  0
+    roadsBuilt = 0 
 
+    # process sorted edges
     for cost, u, v, action in edges:
+        # only continue if two cities are not yet connected
         if unionf.union(u, v):
             if action == "build":
                 totalCost += cost
             # destroyed edges should be counted as negative cost
             elif action == "destroy":
                 totalCost += cost
+            roadsBuilt += 1
+
+        # break if we've connected all cities (n-1 roads for n cities)
+        if roadsBuilt == n - 1:
+            break
 
     return totalCost
 
